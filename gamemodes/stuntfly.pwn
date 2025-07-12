@@ -593,6 +593,44 @@ CMD:p51(playerid, params[])
 }
 alias:p51("rustler")
 
+CMD:stuntplane(playerid, params[])
+{
+    if (IsValidVehicle(g_PlayerLastVeh[playerid])) {
+        DestroyVehicle(g_PlayerLastVeh[playerid]);
+    }
+
+    new Float:x, Float:y, Float:z, Float:angle;
+    GetPlayerFacingAngle(playerid, angle);
+    GetPlayerPos(playerid, x, y, z);
+    new vid = CreateVehicle(513, x, y, z, angle, -1, -1, -1);
+    PutPlayerInVehicle(playerid, vid, 0);
+
+    return 1;
+}
+
+CMD:v(playerid, params[])
+{
+    new const modelid = strval(params);
+
+    if (!modelid || modelid < 400 || modelid > 611) {
+        SendClientMessage(playerid, 0x00FF00FF, "usage: \"/v [400~611]\" or \"/c [400~611]\"");
+        return 1;
+    }
+
+    if (IsValidVehicle(g_PlayerLastVeh[playerid])) {
+        DestroyVehicle(g_PlayerLastVeh[playerid]);
+    }
+
+    new Float:x, Float:y, Float:z, Float:angle;
+    GetPlayerFacingAngle(playerid, angle);
+    GetPlayerPos(playerid, x, y, z);
+    new vid = CreateVehicle(modelid, x, y, z, angle, -1, -1, -1);
+    PutPlayerInVehicle(playerid, vid, 0);
+
+    return 1;
+}
+alias:v("c")
+
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
     //the 1.0 offset to avoid falling into ground
