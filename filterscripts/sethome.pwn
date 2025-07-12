@@ -3,11 +3,12 @@
 #include <Pawn.CMD>
 #include <string>
 
-#define COLOR_SUCCESS 0x00FF0000
-#define COLOR_FAIL 0xFF000000
+#define COLOR_SUCCESS 0x00FF00FF
+#define COLOR_FAIL 0xFF0000FF
 
 static enum E_STATE {
     E_STATE_VEHICLE_MODEL_ID, Bool:E_STATE_ENABLE_QUICK_KEYS,
+    PlayerText3D:E_STATE_3DLABEL_ID,
     Float:E_STATE_POS_X, Float:E_STATE_POS_Y, Float:E_STATE_POS_Z,
     Float:E_STATE_VL_X, Float:E_STATE_VL_Y, Float:E_STATE_VL_Z,
     Float:E_STATE_YAW, Float:E_STATE_HEALTH,
@@ -21,13 +22,19 @@ public OnPlayerConnect(playerid)
 {
     g_PlayerStates[playerid][E_STATE_VEHICLE_MODEL_ID] = -1;
     g_PlayerStates[playerid][E_STATE_ENABLE_QUICK_KEYS] = Bool:false;
+
     return 1;
 }
 
 public OnPlayerDisconnect(playerid, reason)
 {
+    if (IsValidPlayer3DTextLabel(playerid, PlayerText3D:g_PlayerStates[playerid][E_STATE_3DLABEL_ID])) {
+        DeletePlayer3DTextLabel(playerid, PlayerText3D:g_PlayerStates[playerid][E_STATE_3DLABEL_ID]);
+    }
+
     g_PlayerStates[playerid][E_STATE_VEHICLE_MODEL_ID] = -1;
     g_PlayerStates[playerid][E_STATE_ENABLE_QUICK_KEYS] = Bool:false;
+
     return 1;
 }
 
@@ -36,8 +43,9 @@ CMD:quickhome(playerId, params[])
     g_PlayerStates[playerId][E_STATE_ENABLE_QUICK_KEYS] = Bool:!g_PlayerStates[playerId][E_STATE_ENABLE_QUICK_KEYS];
 
     if (g_PlayerStates[playerId][E_STATE_ENABLE_QUICK_KEYS]) {
-        SendClientMessage(playerId, COLOR_SUCCESS,
-                          "Quick home is ENABLED:\n/sethome(onfoot: KEY_YES, driving: KET_SKIP)\n/home(driving: KEY_HORN, onfoot: KEY_CROUCH).");
+        SendClientMessage(playerId, COLOR_SUCCESS, "Quick home is ENABLED:");
+        SendClientMessage(playerId, COLOR_SUCCESS, "/sethome(onfoot: KEY_YES, driving: KET_SKIP)");
+        SendClientMessage(playerId, COLOR_SUCCESS, "/home(driving: KEY_HORN, onfoot: KEY_CROUCH)");
     }
     else {
         SendClientMessage(playerId, COLOR_FAIL, "Quick home is DISABLED.");
@@ -73,6 +81,15 @@ CMD:sethome(playerId, const params[])
         GetPlayerFacingAngle(playerId, g_PlayerStates[playerId][E_STATE_YAW]);
         GetPlayerHealth(playerId, g_PlayerStates[playerId][E_STATE_HEALTH]);
     }
+
+    if (IsValid3DTextLabel(g_PlayerStates[playerId][E_STATE_3DLABEL_ID])) {
+        DeletePlayer3DTextLabel(g_PlayerStates[playerId][E_STATE_3DLABEL_ID]);
+    }
+    new label_text[32];
+    format(label_text, sizeof(label_text), "X:%.2f Y:%.2f Z:%.2f",
+           g_PlayerStates[playerId][E_STATE_POS_X], g_PlayerStates[playerId][E_STATE_POS_Y], g_PlayerStates[playerId][E_STATE_POS_Z]);
+    g_PlayerStates[playerId][E_STATE_3DLABEL_ID] = CreatePlayer3DTextLabel(playerId, label_text, COLOR_SUCCESS,
+            g_PlayerStates[playerId][E_STATE_POS_X], g_PlayerStates[playerId][E_STATE_POS_Y], g_PlayerStates[playerId][E_STATE_POS_Z], 40.0);
 
     SendClientMessage(playerId, COLOR_SUCCESS, "Successfully saved the current state!");
 
