@@ -601,7 +601,10 @@ public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 
 public OnPlayerDisconnect(playerid, reason)
 {
-    //the vehicle will be cleaned by omp
+    if (IsValidVehicle(g_PlayerLastVeh[playerid])) {
+        DestroyVehicle(g_PlayerLastVeh[playerid]);
+    }
+
     g_PlayerLastVeh[playerid] = 0;
     //g_PlayerTeleportToggle[playerid] = false;
 }
