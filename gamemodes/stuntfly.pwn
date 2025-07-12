@@ -6,7 +6,7 @@
 #define MAX_RCP 200
 #define MAX_RACE 9999
 
-//ç”¨äºå­˜å‚¨æ£€æŸ¥ç‚¹æ•°æ®
+//ÓÃÓÚ´æ´¢¼ì²éµãÊı¾İ
 enum E_RCP_DATA {
     Float:posx[MAX_RCP],
     Float:posy[MAX_RCP],
@@ -31,31 +31,31 @@ CMD:saverace(playerid, params[])
 {
     new race_file_name[24];
     if (sscanf(params, "s[24]", race_file_name)) {
-        SendClientMessage(playerid, 0x7b8cdeff, "/saverace [åå­—] - ä¿å­˜èµ›é“");
+        SendClientMessage(playerid, 0x7b8cdeff, "/saverace [Ãû×Ö] - ±£´æÈüµÀ");
         return 1;
     }
     if (RcpData[playerid][enable][0] == 0) {
-        SendClientMessage(playerid, 0xe4026fff, "æ£€æµ‹åˆ°ä½ ç¬¬0å·æ£€æŸ¥ç‚¹æ²¡æœ‰æ•°æ®ã€‚è¯·ç¡®ä¿è‡³å°‘æœ‰ä¸€ä¸ªæ£€æŸ¥ç‚¹ï¼Œæˆ–è€…æ£€æŸ¥ç‚¹çš„èŠ‚ç‚¹åºå·éœ€è¦ä»0å¼€å§‹åˆ›å»ºã€‚");
+        SendClientMessage(playerid, 0xe4026fff, "¼ì²âµ½ÄãµÚ0ºÅ¼ì²éµãÃ»ÓĞÊı¾İ¡£ÇëÈ·±£ÖÁÉÙÓĞÒ»¸ö¼ì²éµã£¬»òÕß¼ì²éµãµÄ½ÚµãĞòºÅĞèÒª´Ó0¿ªÊ¼´´½¨¡£");
         return 1;
     }
     if (GetPVarInt(playerid, "ok") == 0) {
-        SendClientMessage(playerid, 0xe4026fff, "è¯·æ‚¨å»åˆ°ä½ è¦å½“èµ›é“èµ·ç‚¹çš„ä½ç½®è¸©ç‚¹å†ä¿å­˜èµ›é“ï¼Œæ˜ç™½è¯·è¾“å…¥ /ok å†ä¿å­˜èµ›é“ ã€‚");
-        SendClientMessage(playerid, 0xe4026fff, "ï¼ˆè§†çº¿çœ‹å‘çš„æ–¹å‘æ˜¯å¼€å§‹èµ›é“åé£æœºçš„æœå‘ï¼‰");
-        SendClientMessage(playerid, 0xe4026fff, "ï¼ˆå¯ä»¥ä½¿ç”¨/showrcpæŒ‡ä»¤æ˜¾ç¤ºæ£€æŸ¥ç‚¹ï¼‰");
+        SendClientMessage(playerid, 0xe4026fff, "ÇëÄúÈ¥µ½ÄãÒªµ±ÈüµÀÆğµãµÄÎ»ÖÃ²ÈµãÔÙ±£´æÈüµÀ£¬Ã÷°×ÇëÊäÈë /ok ÔÙ±£´æÈüµÀ ¡£");
+        SendClientMessage(playerid, 0xe4026fff, "£¨ÊÓÏß¿´ÏòµÄ·½ÏòÊÇ¿ªÊ¼ÈüµÀºó·É»úµÄ³¯Ïò£©");
+        SendClientMessage(playerid, 0xe4026fff, "£¨¿ÉÒÔÊ¹ÓÃ/showrcpÖ¸ÁîÏÔÊ¾¼ì²éµã£©");
         return 1;
     }
     format(race_file_name, sizeof(race_file_name), "%s.ini", race_file_name);
 
-    //åˆ é™¤æ—§çš„æ–‡ä»¶ä¸­æ•°æ®
+    //É¾³ı¾ÉµÄÎÄ¼şÖĞÊı¾İ
     fremove(race_file_name);
 
     new File:handle = fopen(race_file_name);
     new tmp[64];
-    // ---è¿™é‡Œå¼€å§‹å†™å…¥èµ›é“èµ·ç‚¹---
+    // ---ÕâÀï¿ªÊ¼Ğ´ÈëÈüµÀÆğµã---
     tmp = startdate(playerid);
     fwrite(handle, tmp);
 
-    // ---è¿™é‡Œå¼€å§‹å†™å…¥æ£€æŸ¥ç‚¹---
+    // ---ÕâÀï¿ªÊ¼Ğ´Èë¼ì²éµã---
 
     if (handle) {
         for (new a = 0; a < MAX_RCP ; a++) {
@@ -65,7 +65,7 @@ CMD:saverace(playerid, params[])
             }
             else {
                 a = 999;
-                //åˆ é™¤å†…å­˜ä¸­æ—§çš„æ•°æ®
+                //É¾³ıÄÚ´æÖĞ¾ÉµÄÊı¾İ
                 RcpData[playerid] = RcpData[MAX_PLAYERS];
             }
         }
@@ -74,10 +74,10 @@ CMD:saverace(playerid, params[])
     else {
         print("The file does not exists, or can't be opened.");
     }
-    SendClientMessage(playerid, 0x8db700ff, "èµ›é“ä¿å­˜å®Œæˆ");
-    //é‡æ–°æ˜¾ç¤ºå¼€åœºcp
+    SendClientMessage(playerid, 0x8db700ff, "ÈüµÀ±£´æÍê³É");
+    //ÖØĞÂÏÔÊ¾¿ª³¡cp
     SpawnCP(playerid);
-    //æ¸…ç†rcpæ£€æŸ¥ç‚¹
+    //ÇåÀírcp¼ì²éµã
     DisablePlayerRaceCheckpoint(playerid);
     return 1;
 }
@@ -85,13 +85,13 @@ CMD:saverace(playerid, params[])
 CMD:creatercp(playerid, params[])
 {
 
-    //ä½¿ç”¨GetPlayerCameraFrontVectorå’ŒGetPlayerCameraPoså‡½æ•°æ­é…ä½¿ç”¨ï¼Œè®¡ç®—ç©å®¶è§†è§’å‘é‡ã€‚
-    //ç„¶åæŠŠè§†è§’å‘é‡è½¬æ¢æˆrcpæ£€æŸ¥ç‚¹çš„ä¸‹ä¸€è·³åæ ‡è½´ ä½¿ç”¨floatmulå‡½æ•°å®ç°
+    //Ê¹ÓÃGetPlayerCameraFrontVectorºÍGetPlayerCameraPosº¯Êı´îÅäÊ¹ÓÃ£¬¼ÆËãÍæ¼ÒÊÓ½ÇÏòÁ¿¡£
+    //È»ºó°ÑÊÓ½ÇÏòÁ¿×ª»»³Ércp¼ì²éµãµÄÏÂÒ»Ìø×ø±êÖá Ê¹ÓÃfloatmulº¯ÊıÊµÏÖ
 
     new rcp_size, rcp_node;
     if (sscanf(params, "ii", rcp_size, rcp_node)) {
-        //æ£€æµ‹ç©å®¶è¾“å…¥æ˜¯å¦è§„èŒƒ
-        SendClientMessage(playerid, 0x7b8cdeff, "åœ¨ä½ çš„æ‘„åƒæœºè§†è§’ä½ç½®åˆ›å»ºä¸€ä¸ªæœå‘ä½ æ­£å‰æ–¹çš„æ£€æŸ¥ç‚¹ - /rcp [å¤§å°] [èŠ‚ç‚¹åºå·]");
+        //¼ì²âÍæ¼ÒÊäÈëÊÇ·ñ¹æ·¶
+        SendClientMessage(playerid, 0x7b8cdeff, "ÔÚÄãµÄÉãÏñ»úÊÓ½ÇÎ»ÖÃ´´½¨Ò»¸ö³¯ÏòÄãÕıÇ°·½µÄ¼ì²éµã - /rcp [´óĞ¡] [½ÚµãĞòºÅ]");
         return 1;
     }
     new Float:fPX, Float:fPY, Float:fPZ,
@@ -101,27 +101,27 @@ CMD:creatercp(playerid, params[])
 
     const Float:fScale = 50.0;
 
-    //è·å–ç©å®¶è§†è§’åæ ‡è½´å’Œå‘é‡
+    //»ñÈ¡Íæ¼ÒÊÓ½Ç×ø±êÖáºÍÏòÁ¿
     GetPlayerCameraPos(playerid, fPX, fPY, fPZ);
     GetPlayerCameraFrontVector(playerid, fVX, fVY, fVZ);
 
-    //é€è¿‡å‘é‡è®¡ç®—å‡ºç©å®¶è§†çº¿ä¸Šçš„æŸä¸€ç‚¹
+    //Í¸¹ıÏòÁ¿¼ÆËã³öÍæ¼ÒÊÓÏßÉÏµÄÄ³Ò»µã
     point_of_sight_x = fPX + floatmul(fVX, fScale);
     point_of_sight_y = fPY + floatmul(fVY, fScale);
     point_of_sight_z = fPZ + floatmul(fVZ, fScale);
 
 
-    //ç¦ç”¨å¼€åœºæ£€æŸ¥ç‚¹
+    //½ûÓÃ¿ª³¡¼ì²éµã
     DisablePlayerCheckpoint(playerid);
-    //åˆ›å»ºRCPæ£€æŸ¥ç‚¹
+    //´´½¨RCP¼ì²éµã
     SetPlayerRaceCheckpoint(playerid, 3, fPX, fPY, fPZ, point_of_sight_x, point_of_sight_y, point_of_sight_z, rcp_size);
 
-    //åœ¨ç©å®¶å®¢æˆ·ç«¯ä¸Šè¿”å›æ‰“å°æ–‡æœ¬
+    //ÔÚÍæ¼Ò¿Í»§¶ËÉÏ·µ»Ø´òÓ¡ÎÄ±¾
     new var[128];
-    format(var, sizeof(var), "åˆ›å»ºæ£€æŸ¥ç‚¹ï¼šå¤§å°=%d,ç¼–å·=%d", rcp_size, rcp_node);
+    format(var, sizeof(var), "´´½¨¼ì²éµã£º´óĞ¡=%d,±àºÅ=%d", rcp_size, rcp_node);
     SendClientMessage(playerid, -1, var);
 
-    //ä¿å­˜åˆ°å…¨å±€å˜é‡æ•°ç»„
+    //±£´æµ½È«¾Ö±äÁ¿Êı×é
     RcpData[playerid][posx][rcp_node] = fPX;
     RcpData[playerid][posy][rcp_node] = fPY;
     RcpData[playerid][posz][rcp_node] = fPZ;
@@ -139,9 +139,9 @@ CMD:testrace(playerid, params[])
 {
     new race_file_name[64];
     if (sscanf(params, "s[64]", race_file_name)) {
-        //æ£€æµ‹ç©å®¶è¾“å…¥æ˜¯å¦è§„èŒƒ
+        //¼ì²âÍæ¼ÒÊäÈëÊÇ·ñ¹æ·¶
 
-        SendClientMessage(playerid, 0xffffff, "æµ‹è¯•ä¸€ä¸ªé£è¡Œè·¯çº¿ - /testrace [èµ›é“å]");
+        SendClientMessage(playerid, 0xffffff, "²âÊÔÒ»¸ö·ÉĞĞÂ·Ïß - /testrace [ÈüµÀÃû]");
         return 1;
     }
     startrace(playerid, race_file_name);
@@ -152,18 +152,18 @@ new RaceLoopnumber[MAX_PLAYERS + 1] = 0;
 
 startrace(playerid, race_file_name[64])
 {
-    RcpData[playerid] = RcpData[MAX_PLAYERS];//æ¸…ç†æ•°æ®
+    RcpData[playerid] = RcpData[MAX_PLAYERS];//ÇåÀíÊı¾İ
     new RaceFullName[64];
     format(RaceFullName, sizeof(race_file_name), "%s.ini", race_file_name);
     if (fexist(RaceFullName)) {
 
     }
     else {
-        SendClientMessage(playerid, 0xe4026fff, "èµ›é“ä¸å­˜åœ¨ï¼");
+        SendClientMessage(playerid, 0xe4026fff, "ÈüµÀ²»´æÔÚ£¡");
         return 1;
     }
     new File:handle = fopen(RaceFullName, io_read), buf[128];
-    //èµ›é“èµ·ç‚¹åŠ è½½
+    //ÈüµÀÆğµã¼ÓÔØ
     fread(handle, buf);
     new Float:AirplanePosX;
     new Float:AirplanePosY;
@@ -171,10 +171,10 @@ startrace(playerid, race_file_name[64])
     new Float:AirplanePosZ_angle;
     sscanf(buf, "ffff", AirplanePosX, AirplanePosY, AirplanePosZ, AirplanePosZ_angle);
 
-    // èµ›é“æ£€æŸ¥ç‚¹æ•°æ®åŠ è½½
+    // ÈüµÀ¼ì²éµãÊı¾İ¼ÓÔØ
     new i = 0;
     while (fread(handle, buf)) {
-        //è¿™é‡Œå¼€å§‹å¾ªç¯è®¾ç½®æ£€æŸ¥ç‚¹
+        //ÕâÀï¿ªÊ¼Ñ­»·ÉèÖÃ¼ì²éµã
         new Float:posx_start;
         new Float:posy_start;
         new Float:posz_start;
@@ -183,10 +183,10 @@ startrace(playerid, race_file_name[64])
         new Float:nextz_start;
         new size_start;
         new type_start;
-        //æ¯ä¸€è¡Œå†…å®¹å†™å…¥ä¸´æ—¶å˜é‡
+        //Ã¿Ò»ĞĞÄÚÈİĞ´ÈëÁÙÊ±±äÁ¿
         sscanf(buf, "ffffffii", posx_start, posy_start, posz_start, nextx_start, nexty_start, nextz_start, type_start, size_start);
 
-        //å€Ÿç»„ä¸´æ—¶å˜é‡å’Œå¾ªç¯ç»“æ„åŠ è½½æ•´ä¸ªèµ›é“å†™å…¥æ•°ç»„ã€‚ï¼ˆåŠ è½½æ•°æ®ï¼‰
+        //½è×éÁÙÊ±±äÁ¿ºÍÑ­»·½á¹¹¼ÓÔØÕû¸öÈüµÀĞ´ÈëÊı×é¡££¨¼ÓÔØÊı¾İ£©
         RcpData[playerid][posx][i] = posx_start;
         RcpData[playerid][posy][i] = posy_start;
         RcpData[playerid][posz][i] = posz_start;
@@ -199,11 +199,11 @@ startrace(playerid, race_file_name[64])
         i++;
     }
     fclose(handle);
-    //ç¦ç”¨å¼€åœºæ£€æŸ¥ç‚¹
+    //½ûÓÃ¿ª³¡¼ì²éµã
     DisablePlayerCheckpoint(playerid);
-    //è®¾ç½®ç¬¬ä¸€ä¸ªæ£€æŸ¥ç‚¹
+    //ÉèÖÃµÚÒ»¸ö¼ì²éµã
     SetPlayerRaceCheckpoint(playerid, RcpData[playerid][type][RaceLoopnumber[playerid]], RcpData[playerid][posx][RaceLoopnumber[playerid]], RcpData[playerid][posy][RaceLoopnumber[playerid]], RcpData[playerid][posz][RaceLoopnumber[playerid]], RcpData[playerid][nextx][RaceLoopnumber[playerid]], RcpData[playerid][nexty][RaceLoopnumber[playerid]], RcpData[playerid][nextz][RaceLoopnumber[playerid]], RcpData[playerid][size][RaceLoopnumber[playerid]]);
-    //åˆ›å»ºè½½å…·å¹¶ä¸”æŠŠç©å®¶æ”¾è¿›å»
+    //´´½¨ÔØ¾ß²¢ÇÒ°ÑÍæ¼Ò·Å½øÈ¥
     new vid = CreateVehicle(520, AirplanePosX, AirplanePosY, AirplanePosZ, AirplanePosZ_angle, -1, -1, -1);
     PutPlayerInVehicle(playerid, vid, 0);
     return 1;
@@ -211,15 +211,15 @@ startrace(playerid, race_file_name[64])
 
 RaceLooper(playerid)
 {
-    //èµ›é“å¾ªç¯ç®¡ç†å‘˜
-    if (RcpData[playerid][enable][RaceLoopnumber[playerid]] != 0) { //å¦‚æœèµ›é“çš„enableæ•°æ®ä¸º0ï¼Œå°±ç»“æŸèµ›é“å¾ªç¯å®Œæˆèµ›é“ã€‚
+    //ÈüµÀÑ­»·¹ÜÀíÔ±
+    if (RcpData[playerid][enable][RaceLoopnumber[playerid]] != 0) { //Èç¹ûÈüµÀµÄenableÊı¾İÎª0£¬¾Í½áÊøÈüµÀÑ­»·Íê³ÉÈüµÀ¡£
         SetPlayerRaceCheckpoint(playerid, RcpData[playerid][type][RaceLoopnumber[playerid]], RcpData[playerid][posx][RaceLoopnumber[playerid]], RcpData[playerid][posy][RaceLoopnumber[playerid]], RcpData[playerid][posz][RaceLoopnumber[playerid]], RcpData[playerid][nextx][RaceLoopnumber[playerid]], RcpData[playerid][nexty][RaceLoopnumber[playerid]], RcpData[playerid][nextz][RaceLoopnumber[playerid]], RcpData[playerid][size][RaceLoopnumber[playerid]]);
     }
     else {
         RaceLoopnumber[playerid] = 0;
         DisablePlayerRaceCheckpoint(playerid);
-        SendClientMessage(playerid, 0xffba13ff, "æ­å–œä½ ");
-        //æ˜¾ç¤ºå¼€åœºæ£€æŸ¥ç‚¹,å¹¶ä¸”è®©ç©å®¶å›åˆ°å‡ºç”Ÿç‚¹
+        SendClientMessage(playerid, 0xffba13ff, "¹§Ï²Äã");
+        //ÏÔÊ¾¿ª³¡¼ì²éµã,²¢ÇÒÈÃÍæ¼Ò»Øµ½³öÉúµã
         SpawnCP(playerid);
         SpawnPlayer(playerid);
     }
@@ -228,15 +228,15 @@ RaceLooper(playerid)
 
 public OnPlayerEnterRaceCheckpoint(playerid)
 {
-    if (GetPVarInt(playerid, "FlyMode")) { //æ£€æŸ¥ç©å®¶æ˜¯å¦å¤„äºé£è¡Œæ¨¡å¼å½“ä¸­ã€‚å¦‚æœæ˜¯å°±ä¸è§¦å‘é£è¡Œå¾ªç¯ï¼Œé¿å…å½±å“èµ›é“ç¼–è¾‘ã€‚
+    if (GetPVarInt(playerid, "FlyMode")) { //¼ì²éÍæ¼ÒÊÇ·ñ´¦ÓÚ·ÉĞĞÄ£Ê½µ±ÖĞ¡£Èç¹ûÊÇ¾Í²»´¥·¢·ÉĞĞÑ­»·£¬±ÜÃâÓ°ÏìÈüµÀ±à¼­¡£
         return 1;
     }
     RaceLoopnumber[playerid]++;
-    RaceLooper(playerid);//ä¸´æ—¶è‡ªå¢å˜é‡+1å¹¶ä¸”å†æ¬¡ä¼ å‚å‘¼å«èµ›é“å¾ªç¯ç®¡ç†å‘˜
+    RaceLooper(playerid);//ÁÙÊ±×ÔÔö±äÁ¿+1²¢ÇÒÔÙ´Î´«²Îºô½ĞÈüµÀÑ­»·¹ÜÀíÔ±
     return 1;
 }
 
-//---åŠ è½½èµ›é“ç´¢å¼•---
+//---¼ÓÔØÈüµÀË÷Òı---
 enum E_RACEDATA {
     RACEDATA_ID,
     RACEDATA_RACENAME,
@@ -271,7 +271,7 @@ public OnGameModeInit()
         TotalLine = i;
     }
     fclose(handle);
-    //æ·»åŠ äººç‰©çš®è‚¤
+    //Ìí¼ÓÈËÎïÆ¤·ô
     AddPlayerClass(299, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
     AddPlayerClass(29, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
     AddPlayerClass(86, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
@@ -288,22 +288,22 @@ public OnGameModeInit()
     return 1;
 }
 
-//---åŠ è½½èµ›é“ç´¢å¼• end---
+//---¼ÓÔØÈüµÀË÷Òı end---
 
 CMD:mypos(playerid, params[])
 {
     new Float:x, Float:y, Float:z;
     GetPlayerPos(playerid, x, y, z);
     new string[64];
-    format(string, sizeof(string), "æ‚¨çš„ä½ç½®åæ ‡ä¸º: x: %.2f, y: %.2f, z: %.2f", x, y, z);
+    format(string, sizeof(string), "ÄúµÄÎ»ÖÃÎª: x: %.2f, y: %.2f, z: %.2f", x, y, z);
     SendClientMessage(playerid, 0x00E5EEFF, string);
     return 1;
 }
 
-//å®šä¹‰ç¿»é¡µç»„ä»¶æ¯é¡µæ˜¾ç¤ºèŒƒå›´
-#define PAGE_SIZE 18 //æ¯é¡µæ˜¾ç¤º20ä¸ªæ¡ç›®
+//¶¨Òå·­Ò³×é¼şÃ¿Ò³ÏÔÊ¾·¶Î§
+#define PAGE_SIZE 18 //Ã¿Ò³ÏÔÊ¾20¸öÌõÄ¿
 
-//-----èµ›é“ç¿»é¡µ-------
+//-----ÈüµÀ·­Ò³-------
 
 enum E_RACE_PAGE_STATUS {
     RACESTATUS_PAGEENDPOINT,
@@ -325,7 +325,7 @@ RaceListFormat(playerid, page)
         strcat(stringlist, RaceData[i][RACEDATA_FROM]);
         strcat(stringlist, "\n");
     }
-    strcat(stringlist, "ä¸Šä¸€é¡µ\nä¸‹ä¸€é¡µ\n");
+    strcat(stringlist, "ÉÏÒ»Ò³\nÏÂÒ»Ò³\n");
     return stringlist;
 }
 
@@ -337,12 +337,12 @@ enum {
 ShowRaceDlList(playerid)
 {
     RacePageStatus[playerid][CURRENT_PAGE] = 1;
-    ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ç‰¹æŠ€é£è¡Œèµ›é“é€‰æ‹©ç³»ç»Ÿ", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+    ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ÌØ¼¼·ÉĞĞÈüµÀÑ¡ÔñÏµÍ³", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
     return 1;
 }
-//-----èµ›é“ç¿»é¡µ end-------
+//-----ÈüµÀ·­Ò³ end-------
 
-//-----æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨------
+//-----¼ì²éµã±à¼­Æ÷------
 
 enum E_RCP_PAGE_STATUS {
     RCPSTATUS_PAGEENDPOINT,
@@ -351,7 +351,7 @@ enum E_RCP_PAGE_STATUS {
 }
 
 new RcpPageStatus[MAX_PLAYERS + 1][E_RCP_PAGE_STATUS];
-new RcpTotalLine;//å½“å‰èµ›é“æ€»å…±æ¿€æ´»çš„æ£€æŸ¥ç‚¹
+new RcpTotalLine;//µ±Ç°ÈüµÀ×Ü¹²¼¤»îµÄ¼ì²éµã
 
 RcpListFormat(playerid, page)
 {
@@ -361,85 +361,85 @@ RcpListFormat(playerid, page)
     RcpPageStatus[playerid][RCPSTATUS_PAGEENDPOINT] = end_index - RcpPageStatus[playerid][ON_THAT_PAGE_START_INDEX_NOW];
     new tmp[16];
     for (new i = RcpPageStatus[playerid][ON_THAT_PAGE_START_INDEX_NOW]; i < end_index; i++) {
-        format(tmp, sizeof(tmp), "æ£€æŸ¥ç‚¹%d", i);
+        format(tmp, sizeof(tmp), "¼ì²éµã%d", i);
         strcat(stringlist, tmp);
         strcat(stringlist, "\n");
     }
-    strcat(stringlist, "ä¸Šä¸€é¡µ\nä¸‹ä¸€é¡µ\n");
+    strcat(stringlist, "ÉÏÒ»Ò³\nÏÂÒ»Ò³\n");
     return stringlist;
 }
 
 CMD:showrcp(playerid, params[])
 {
-    //ç¡®å®šæ€»å…±æœ‰å¤šå°‘è¡Œæ£€æŸ¥ç‚¹
+    //È·¶¨×Ü¹²ÓĞ¶àÉÙĞĞ¼ì²éµã
     new i = 0;
     while (RcpData[playerid][enable][i] == 1) {
         i++;
-        RcpTotalLine = i; //å¯èƒ½éœ€è¦i - 1  å› ä¸ºå®ƒæ˜¯ä»1å¼€å§‹è®¡ç®—çš„ã€‚ rcp0 = i1
+        RcpTotalLine = i; //¿ÉÄÜĞèÒªi - 1  ÒòÎªËüÊÇ´Ó1¿ªÊ¼¼ÆËãµÄ¡£ rcp0 = i1
     }
-    //åˆ›å»ºç¬¬ä¸€é¡µæ¸²æŸ“
+    //´´½¨µÚÒ»Ò³äÖÈ¾
     RcpPageStatus[playerid][CURRENT_PAGE] = 1;
-    ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+    ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "¼ì²éµã±à¼­Æ÷", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
     return 1;
 }
 
-//-----æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨ end------
+//-----¼ì²éµã±à¼­Æ÷ end------
 
-//å¯¹è¯æ¡†å›è°ƒç»“æ„ä½“
+//¶Ô»°¿ò»Øµ÷½á¹¹Ìå
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
-    //----å¤„ç†é€‰æ‹©èµ›é“----
+    //----´¦ÀíÑ¡ÔñÈüµÀ----
     if (dialogid == DIALOG_STARTRACE && response) {
         if (listitem < RacePageStatus[playerid][RACESTATUS_PAGEENDPOINT]) {
             startrace(playerid, RaceData[RacePageStatus[playerid][ON_THAT_PAGE_START_INDEX_NOW] + listitem][RACEDATA_FILENAME]);
         }
-        else if (listitem == RacePageStatus[playerid][RACESTATUS_PAGEENDPOINT]) {   //ä¸Šä¸€é¡µ ã€‚ å¦‚æœåˆšå¥½è½åœ¨è¿™ä¸ªç»“æŸç‚¹ä¸Šå°±æ˜¯ä¸Šä¸€é¡µçš„ä½ç½®
+        else if (listitem == RacePageStatus[playerid][RACESTATUS_PAGEENDPOINT]) {   //ÉÏÒ»Ò³ ¡£ Èç¹û¸ÕºÃÂäÔÚÕâ¸ö½áÊøµãÉÏ¾ÍÊÇÉÏÒ»Ò³µÄÎ»ÖÃ
             if (RacePageStatus[playerid][CURRENT_PAGE] == 1) {
-                //åœ¨è¯¥ä»£ç ä¸­ï¼ŒCURRENT_PAGEè¡¨ç¤ºå½“å‰é¡µé¢çš„é¡µç ï¼Œä»1å¼€å§‹è®¡æ•°ã€‚å¦‚æœç©å®¶åœ¨ç¬¬ä¸€é¡µé€‰æ‹©äº†ä¸Šä¸€é¡µï¼Œé‚£ä¹ˆCURRENT_PAGEå‡1åå°±ä¼šå˜ä¸º0ï¼Œè¿™æ˜¾ç„¶æ˜¯ä¸åˆæ³•çš„ã€‚
-                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ç‰¹æŠ€é£è¡Œèµ›é“é€‰æ‹©ç³»ç»Ÿ", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                //ÔÚ¸Ã´úÂëÖĞ£¬CURRENT_PAGE±íÊ¾µ±Ç°Ò³ÃæµÄÒ³Âë£¬´Ó1¿ªÊ¼¼ÆÊı¡£Èç¹ûÍæ¼ÒÔÚµÚÒ»Ò³Ñ¡ÔñÁËÉÏÒ»Ò³£¬ÄÇÃ´CURRENT_PAGE¼õ1ºó¾Í»á±äÎª0£¬ÕâÏÔÈ»ÊÇ²»ºÏ·¨µÄ¡£
+                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ÌØ¼¼·ÉĞĞÈüµÀÑ¡ÔñÏµÍ³", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
             else {
                 RacePageStatus[playerid][CURRENT_PAGE]--;
-                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ç‰¹æŠ€é£è¡Œèµ›é“é€‰æ‹©ç³»ç»Ÿ", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ÌØ¼¼·ÉĞĞÈüµÀÑ¡ÔñÏµÍ³", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
         }
-        else if (listitem > RacePageStatus[playerid][RACESTATUS_PAGEENDPOINT]) {  //ä¸‹ä¸€é¡µ   +1 ç­‰äºä¸‹ä¸€é¡µ
+        else if (listitem > RacePageStatus[playerid][RACESTATUS_PAGEENDPOINT]) {  //ÏÂÒ»Ò³   +1 µÈÓÚÏÂÒ»Ò³
             if (RacePageStatus[playerid][CURRENT_PAGE] < (TotalLine / PAGE_SIZE) + 1) {
-                //è¿™è¡Œä»£ç ç”¨äºåˆ¤æ–­æ˜¯å¦å¯ä»¥ç»§ç»­å‘ä¸‹ç¿»é¡µã€‚æ€»è¡Œæ•°é™¤é¡µé¢å¤§å°å‘ä¸Šå–æ•´ï¼Œå¦‚æœæ¯”ä¸è¿‡å½“å‰é¡µé¢å¤§ã€‚å°±ä¸ç¿»é¡µã€‚åä¹‹å½“å‰é¡µé¢åŠ 1
+                //ÕâĞĞ´úÂëÓÃÓÚÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÌĞøÏòÏÂ·­Ò³¡£×ÜĞĞÊı³ıÒ³Ãæ´óĞ¡ÏòÉÏÈ¡Õû£¬Èç¹û±È²»¹ıµ±Ç°Ò³Ãæ´ó¡£¾Í²»·­Ò³¡£·´Ö®µ±Ç°Ò³Ãæ¼Ó1
                 RacePageStatus[playerid][CURRENT_PAGE]++;
-                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ç‰¹æŠ€é£è¡Œèµ›é“é€‰æ‹©ç³»ç»Ÿ", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ÌØ¼¼·ÉĞĞÈüµÀÑ¡ÔñÏµÍ³", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
             else {
-                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ç‰¹æŠ€é£è¡Œèµ›é“é€‰æ‹©ç³»ç»Ÿ", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                ShowPlayerDialog(playerid, DIALOG_STARTRACE, DIALOG_STYLE_LIST, "ÌØ¼¼·ÉĞĞÈüµÀÑ¡ÔñÏµÍ³", RaceListFormat(playerid, RacePageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
         }
         return 1;
     }
 
-    //----å¤„ç†æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨-----
+    //----´¦Àí¼ì²éµã±à¼­Æ÷-----
     if (dialogid == DIALOG_SHOWRCP && response) {
         if (listitem < RcpPageStatus[playerid][RCPSTATUS_PAGEENDPOINT]) {
-            //æ˜¾ç¤ºé€‰ä¸­çš„æ£€æŸ¥ç‚¹ï¼Œç¼–å·æ˜¯listitem
+            //ÏÔÊ¾Ñ¡ÖĞµÄ¼ì²éµã£¬±àºÅÊÇlistitem
             SetPlayerRaceCheckpoint(playerid, RcpData[playerid][type][listitem], RcpData[playerid][posx][listitem], RcpData[playerid][posy][listitem], RcpData[playerid][posz][listitem], RcpData[playerid][nextx][listitem], RcpData[playerid][nexty][listitem], RcpData[playerid][nextz][listitem], RcpData[playerid][size][listitem]);
         }
-        else if (listitem == RcpPageStatus[playerid][RCPSTATUS_PAGEENDPOINT]) {   //ä¸Šä¸€é¡µ ã€‚ å¦‚æœåˆšå¥½è½åœ¨è¿™ä¸ªç»“æŸç‚¹ä¸Šå°±æ˜¯ä¸Šä¸€é¡µçš„ä½ç½®
+        else if (listitem == RcpPageStatus[playerid][RCPSTATUS_PAGEENDPOINT]) {   //ÉÏÒ»Ò³ ¡£ Èç¹û¸ÕºÃÂäÔÚÕâ¸ö½áÊøµãÉÏ¾ÍÊÇÉÏÒ»Ò³µÄÎ»ÖÃ
             if (RcpPageStatus[playerid][CURRENT_PAGE] == 1) {
-                //åœ¨è¯¥ä»£ç ä¸­ï¼ŒCURRENT_PAGEè¡¨ç¤ºå½“å‰é¡µé¢çš„é¡µç ï¼Œä»1å¼€å§‹è®¡æ•°ã€‚å¦‚æœç©å®¶åœ¨ç¬¬ä¸€é¡µé€‰æ‹©äº†ä¸Šä¸€é¡µï¼Œé‚£ä¹ˆå½“å‰é¡µé¢å‡1åå°±ä¼šå˜ä¸º0ï¼Œè¿™æ˜¾ç„¶æ˜¯ä¸åˆæ³•çš„ã€‚
-                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                //ÔÚ¸Ã´úÂëÖĞ£¬CURRENT_PAGE±íÊ¾µ±Ç°Ò³ÃæµÄÒ³Âë£¬´Ó1¿ªÊ¼¼ÆÊı¡£Èç¹ûÍæ¼ÒÔÚµÚÒ»Ò³Ñ¡ÔñÁËÉÏÒ»Ò³£¬ÄÇÃ´µ±Ç°Ò³Ãæ¼õ1ºó¾Í»á±äÎª0£¬ÕâÏÔÈ»ÊÇ²»ºÏ·¨µÄ¡£
+                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "¼ì²éµã±à¼­Æ÷", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
             else {
                 RcpPageStatus[playerid][CURRENT_PAGE]--;
-                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "¼ì²éµã±à¼­Æ÷", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
         }
-        else if (listitem > RcpPageStatus[playerid][RCPSTATUS_PAGEENDPOINT]) {  //ä¸‹ä¸€é¡µ
+        else if (listitem > RcpPageStatus[playerid][RCPSTATUS_PAGEENDPOINT]) {  //ÏÂÒ»Ò³
             if (RcpPageStatus[playerid][CURRENT_PAGE] < (TotalLine / PAGE_SIZE) + 1) {
-                //è¿™è¡Œä»£ç ç”¨äºåˆ¤æ–­æ˜¯å¦å¯ä»¥ç»§ç»­å‘ä¸‹ç¿»é¡µã€‚æ€»è¡Œæ•°é™¤é¡µé¢å¤§å°å‘ä¸Šå–æ•´ï¼Œä¸å…è®¸å½“å‰é¡µé¢è¶…è¿‡æˆ–è¾¾åˆ°è¿™ä¸ªå€¼ï¼Œé¿å…ç¿»é¡µç¿»å‡ºè¾¹ç•Œã€‚
+                //ÕâĞĞ´úÂëÓÃÓÚÅĞ¶ÏÊÇ·ñ¿ÉÒÔ¼ÌĞøÏòÏÂ·­Ò³¡£×ÜĞĞÊı³ıÒ³Ãæ´óĞ¡ÏòÉÏÈ¡Õû£¬²»ÔÊĞíµ±Ç°Ò³Ãæ³¬¹ı»ò´ïµ½Õâ¸öÖµ£¬±ÜÃâ·­Ò³·­³ö±ß½ç¡£
                 RcpPageStatus[playerid][CURRENT_PAGE]++;
-                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "¼ì²éµã±à¼­Æ÷", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
             else {
-                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "æ£€æŸ¥ç‚¹ç¼–è¾‘å™¨", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
+                ShowPlayerDialog(playerid, DIALOG_SHOWRCP, DIALOG_STYLE_LIST, "¼ì²éµã±à¼­Æ÷", RcpListFormat(playerid, RcpPageStatus[playerid][CURRENT_PAGE]), "open", "nope");
             }
         }
         return 1;
@@ -496,7 +496,7 @@ main()
 }
 
 
-//æ¸…ç†æ— äººäº¤å…·
+//ÇåÀíÎŞÈË½»¾ß
 //ClearVehicle()
 //{
 //    for (new i = 1; i < MAX_VEHICLES ; i++) {
@@ -515,9 +515,9 @@ CMD:cameradate(playerid, params[])
 
 startdate(playerid)
 {
-    //ç»™å®šèµ·å§‹ç‚¹çš„åæ ‡ï¼ˆfPXï¼ŒfPYï¼ŒfPZï¼‰å’Œç›´çº¿ä¸Šçš„ä¸€ç‚¹çš„åæ ‡ï¼ˆOnTheLineXï¼ŒOnTheLineYï¼ŒOnTheLineZï¼‰
-    //è®¡ç®—å‡ºä¸¤ä¸ªç‚¹ä¹‹é—´çš„å‘é‡å·®ï¼ˆdelta_xï¼Œdelta_yï¼Œdelta_zï¼‰
-    //ç„¶åï¼Œä½¿ç”¨åæ­£åˆ‡å‡½æ•°ï¼ˆä¾‹å¦‚ï¼Œatan2ï¼‰æ¥è®¡ç®—delta_yå’Œdelta_xä¹‹é—´çš„å¤¹è§’ï¼ˆä¹Ÿå°±æ˜¯Zè§’åº¦ï¼‰
+    //¸ø¶¨ÆğÊ¼µãµÄ×ø±ê£¨fPX£¬fPY£¬fPZ£©ºÍÖ±ÏßÉÏµÄÒ»µãµÄ×ø±ê£¨OnTheLineX£¬OnTheLineY£¬OnTheLineZ£©
+    //¼ÆËã³öÁ½¸öµãÖ®¼äµÄÏòÁ¿²î£¨delta_x£¬delta_y£¬delta_z£©
+    //È»ºó£¬Ê¹ÓÃ·´ÕıÇĞº¯Êı£¨ÀıÈç£¬atan2£©À´¼ÆËãdelta_yºÍdelta_xÖ®¼äµÄ¼Ğ½Ç£¨Ò²¾ÍÊÇZ½Ç¶È£©
     new Float:fPX, Float:fPY, Float:fPZ;
     new Float:fVX, Float:fVY, Float:fVZ;
     new Float:OnTheLineX, Float:OnTheLineY, Float:OnTheLineZ;
@@ -535,8 +535,8 @@ startdate(playerid)
     delta_x = OnTheLineX - fPX;
     delta_y = OnTheLineY - fPY;
     delta_z = OnTheLineZ - fPZ;
-    //ä½¿ç”¨åæ­£åˆ‡å‡½æ•°è®¡ç®—Zè§’åº¦
-    new z_angle = atan2(delta_y, delta_x) - 90; //ç®—æ³•æ²¡é—®é¢˜ï¼Œä½†æ˜¯æœ‰90åº¦çš„åç§»é‡éœ€ä¿®æ­£
+    //Ê¹ÓÃ·´ÕıÇĞº¯Êı¼ÆËãZ½Ç¶È
+    new z_angle = atan2(delta_y, delta_x) - 90; //Ëã·¨Ã»ÎÊÌâ£¬µ«ÊÇÓĞ90¶ÈµÄÆ«ÒÆÁ¿ĞèĞŞÕı
 
     new data[64];
     format(data, sizeof(data), "%.2f %.2f %.2f %.2f\n", fPX, fPY, fPZ, z_angle);
@@ -591,18 +591,7 @@ CMD:p51(playerid, params[])
 
     return 1;
 }
-
-//new bool:g_PlayerTeleportToggle[MAX_PLAYERS];
-//CMD:tp(playerid, params[])
-//{
-//    g_PlayerTeleportToggle[playerid] = !g_PlayerTeleportToggle[playerid];
-//    if (bool:g_PlayerTeleportToggle[playerid]) {
-//        SendClientMessage(playerid, 0x00FF0000, "Mark teleport is enabled now.");
-//    }
-//    else {
-//        SendClientMessage(playerid, 0x00FF0000, "Mark teleport is disabled now.");
-//    }
-//}
+alias:p51("rustler")
 
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
