@@ -1,0 +1,15 @@
+bans.json
+config.json
+log.txt
+omp-server.exe
+*.amx
+
+.vscode/
+components/
+models/
+plugins/
+qawno/** 
+scriptfiles/
+
+!qawno/include/
+!qawno/include/** 
