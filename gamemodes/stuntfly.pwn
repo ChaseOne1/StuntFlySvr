@@ -486,7 +486,7 @@ public OnPlayerEnterCheckpoint(playerid)
 {
     //ClearVehicle();
     ShowRaceDlList(playerid);
-    return 1;
+    return 0;
 }
 
 main()
@@ -631,6 +631,53 @@ CMD:v(playerid, params[])
 }
 alias:v("c")
 
+CMD:fix(playerid, params[])
+{
+    if (!IsPlayerInAnyVehicle(playerid)) {
+        return SendClientMessage(playerid, 0xFF0000FF, "You are not in a vehicle!");
+    }
+
+    RepairVehicle(GetPlayerVehicleID(playerid));
+
+    SendClientMessage(playerid, 0x00FF00FF, "Your vehicle has been repaired!");
+    return 1;
+}
+alias:fix("repair")
+
+new Bool:g_PlayerGodModeToggle[MAX_PLAYERS];
+CMD:god(playerid, params)
+{
+    g_PlayerGodModeToggle[playerid] = Bool:!g_PlayerGodModeToggle[playerid];
+
+    if (g_PlayerGodModeToggle[playerid]) {
+        SetPlayerHealth(playerid, 100.0);
+        SendClientMessage(playerid, 0x00FF00FF, "God mode ON.");
+    }
+    else {
+        SendClientMessage(playerid, 0x00FF00FF, "God mode OFF.");
+    }
+
+    return 1;
+}
+
+public OnPlayerTakeDamage(playerid, issuerid, Float:amount, WEAPON:weaponid, bodypart)
+{
+    if (!g_PlayerGodModeToggle[playerid]) return 0;
+
+    SetPlayerHealth(playerid, 100.0);
+    return 0;
+}
+
+public OnVehicleDamageStatusUpdate(vehicleid, playerid)
+{
+    if (!g_PlayerGodModeToggle[playerid]) return 0;
+
+    if (IsPlayerInVehicle(playerid, vehicleid)) {
+        RepairVehicle(vehicleid);
+    }
+    return 0;
+}
+
 public OnPlayerClickMap(playerid, Float:fX, Float:fY, Float:fZ)
 {
     //the 1.0 offset to avoid falling into ground
@@ -644,5 +691,6 @@ public OnPlayerDisconnect(playerid, reason)
     }
 
     g_PlayerLastVeh[playerid] = 0;
+    g_PlayerGodModeToggle[playerid] = Bool:false;
     //g_PlayerTeleportToggle[playerid] = false;
 }
