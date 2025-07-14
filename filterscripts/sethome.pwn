@@ -21,6 +21,7 @@ new g_PlayerStates[MAX_PLAYERS][E_STATE];
 public OnPlayerConnect(playerid)
 {
     g_PlayerStates[playerid][E_STATE_VEHICLE_MODEL_ID] = -1;
+    g_PlayerStates[playerid][E_STATE_3DLABEL_ID] = INVALID_PLAYER_3DTEXT_ID;
     g_PlayerStates[playerid][E_STATE_ENABLE_QUICK_KEYS] = Bool:false;
 
     return 1;
@@ -30,6 +31,7 @@ public OnPlayerDisconnect(playerid, reason)
 {
     if (IsValidPlayer3DTextLabel(playerid, PlayerText3D:g_PlayerStates[playerid][E_STATE_3DLABEL_ID])) {
         DeletePlayer3DTextLabel(playerid, PlayerText3D:g_PlayerStates[playerid][E_STATE_3DLABEL_ID]);
+        g_PlayerStates[playerid][E_STATE_3DLABEL_ID] = INVALID_PLAYER_3DTEXT_ID;
     }
 
     g_PlayerStates[playerid][E_STATE_VEHICLE_MODEL_ID] = -1;
@@ -82,8 +84,8 @@ CMD:sethome(playerId, const params[])
         GetPlayerHealth(playerId, g_PlayerStates[playerId][E_STATE_HEALTH]);
     }
 
-    if (IsValid3DTextLabel(g_PlayerStates[playerId][E_STATE_3DLABEL_ID])) {
-        DeletePlayer3DTextLabel(g_PlayerStates[playerId][E_STATE_3DLABEL_ID]);
+    if (IsValidPlayer3DTextLabel(playerId, g_PlayerStates[playerId][E_STATE_3DLABEL_ID])) {
+        DeletePlayer3DTextLabel(playerId, g_PlayerStates[playerId][E_STATE_3DLABEL_ID]);
     }
     new label_text[32];
     format(label_text, sizeof(label_text), "X:%.2f Y:%.2f Z:%.2f",
