@@ -82,6 +82,9 @@ CMD:sethome(playerId, const params[])
         GetPlayerHealth(playerId, g_PlayerStates[playerId][E_STATE_HEALTH]);
     }
 
+    if (IsValid3DTextLabel(g_PlayerStates[playerId][E_STATE_3DLABEL_ID])) {
+        DeletePlayer3DTextLabel(g_PlayerStates[playerId][E_STATE_3DLABEL_ID]);
+    }
     new label_text[32];
     format(label_text, sizeof(label_text), "X:%.2f Y:%.2f Z:%.2f",
            g_PlayerStates[playerId][E_STATE_POS_X], g_PlayerStates[playerId][E_STATE_POS_Y], g_PlayerStates[playerId][E_STATE_POS_Z]);
