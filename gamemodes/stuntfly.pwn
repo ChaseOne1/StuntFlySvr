@@ -660,6 +660,53 @@ CMD:god(playerid, params)
     return 1;
 }
 
+#define COLOR_WEATHER_USAGE 0x00FF00FF
+#define COLOR_WEATHER_SUCCESS 0x00FF00FF
+CMD:weather(playerid, params[])
+{
+    if (!strlen(params)) {
+        SendClientMessage(playerid, COLOR_WEATHER_USAGE, "Usage: /weather [integer:0~19]");
+        SendClientMessage(playerid, COLOR_WEATHER_USAGE, "The Weather will slowly change over time. Use the \"/time lock\" before it will apply change instantly.");
+        SendClientMessage(playerid, COLOR_WEATHER_USAGE, "More information of weather id can be found in https://open.mp/docs/scripting/resources/weatherid.");
+        return 1;
+    }
+
+    new const id = strval(params);
+    SetPlayerWeather(playerid, id);
+    SendClientMessage(playerid, COLOR_WEATHER_SUCCESS, "Successfully set the weather to %d.", id);
+
+    return 1;
+}
+
+#define COLOR_TIME_USAGE 0x00FF00FF
+#define COLOR_TIME_SUCCESS 0x00FF00FF
+CMD:time(playerid, params[])
+{
+    if (!strlen(params)) {
+        SendClientMessage(playerid, COLOR_TIME_USAGE, "Usage: /time [Hour:0~23]|[[un]lock]");
+        SendClientMessage(playerid, COLOR_WEATHER_USAGE, "Use \"/time [un]lock\" to toggle whether time is ticking or not.");
+
+        return 1;
+    }
+
+    if (!strcmp(params, "lock", true)) {
+        TogglePlayerClock(playerid, false);
+        SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully lock the time and weather.");
+        return 1;
+    }
+    else if (!strcmp(params, "unlock", true)) {
+        TogglePlayerClock(playerid, true);
+        SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully unlock the time and weather.");
+        return 1;
+    }
+
+    new const hour = strval(params);
+    SetPlayerTime(playerid, hour, 0);
+    SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully set the time to %d.", hour);
+
+    return 1;
+}
+
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, WEAPON:weaponid, bodypart)
 {
     if (!g_PlayerGodModeToggle[playerid]) return 0;
