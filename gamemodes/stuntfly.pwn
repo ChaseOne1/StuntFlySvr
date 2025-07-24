@@ -19,6 +19,8 @@ enum E_RCP_DATA {
     enable[MAX_RCP]
 }
 
+new g_PlayerLastVeh[MAX_PLAYERS];
+
 CMD:ok(playerid, params[])
 {
     SetPVarInt(playerid, "ok", 1);
@@ -450,6 +452,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 public OnPlayerConnect(playerid)
 {
     PlayAudioStreamForPlayer(playerid, "https://file.stuntfly.com/classmusic.mp3");
+    g_PlayerLastVeh[playerid] = INVALID_VEHICLE_ID;
     return 1;
 }
 
@@ -550,7 +553,7 @@ CMD:spawn(playerid, params[])
     return 1;
 }
 
-new g_PlayerLastVeh[MAX_PLAYERS];
+
 public OnPlayerStateChange(playerid, PLAYER_STATE:newstate, PLAYER_STATE:oldstate)
 {
     if (newstate == PLAYER_STATE_DRIVER) {
@@ -737,7 +740,7 @@ public OnPlayerDisconnect(playerid, reason)
         DestroyVehicle(g_PlayerLastVeh[playerid]);
     }
 
-    g_PlayerLastVeh[playerid] = 0;
+    g_PlayerLastVeh[playerid] = INVALID_VEHICLE_ID;
     g_PlayerGodModeToggle[playerid] = Bool:false;
     //g_PlayerTeleportToggle[playerid] = false;
 }
