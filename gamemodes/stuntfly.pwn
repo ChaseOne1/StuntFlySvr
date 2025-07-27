@@ -643,6 +643,7 @@ CMD:fix(playerid, params[])
     RepairVehicle(GetPlayerVehicleID(playerid));
 
     SendClientMessage(playerid, 0x00FF00FF, "Your vehicle has been repaired!");
+    SendClientMessage(playerid, 0x00FF00FF, "The physics of the landing gear may be wrong, please join us for a temporary solution.");
     return 1;
 }
 alias:fix("repair")
@@ -659,6 +660,7 @@ CMD:god(playerid, params)
         }
     
         SendClientMessage(playerid, 0x00FF00FF, "God mode ON.");
+        SendClientMessage(playerid, 0x00FF00FF, "The physics of the landing gear may be wrong after each fix, please join us for a temporary solution.");
     }
     else {
         SendClientMessage(playerid, 0x00FF00FF, "God mode OFF.");
