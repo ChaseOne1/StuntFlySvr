@@ -654,6 +654,10 @@ CMD:god(playerid, params)
 
     if (g_PlayerGodModeToggle[playerid]) {
         SetPlayerHealth(playerid, 100.0);
+        if (IsPlayerInAnyVehicle(playerid)) {
+            RepairVehicle(GetPlayerVehicleID(playerid));
+        }
+    
         SendClientMessage(playerid, 0x00FF00FF, "God mode ON.");
     }
     else {
