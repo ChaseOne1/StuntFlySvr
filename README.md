@@ -6,5 +6,8 @@
 ## 构建
 1. 从[open.mp](https://open.mp/)获取合适的默认服务端；
 2. 拉取本仓库后移动源码至默认服务端，使用默认服务端内`qwano/pawncc`编译`filterscripts`与`gamemodes`下的源码；
-3. 从[Release](https://github.com/ChaseOne1/StuntFlySvr/releases/latest)页面下载服务端资源并移动至默认服务端；
+3. 从[Release](https://github.com/ChaseOne1/StuntFlySvr/releases/latest)页面下载服务端资源(v1.1.0 StuntFlySvr-Res StuntFlySvr.zip)并移动至默认服务端；
 4. 配置并运行。
+
+## 发布页
+定期手动打包Windows可一键执行本地运行服务端整合包。
