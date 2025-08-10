@@ -696,12 +696,12 @@ CMD:time(playerid, params[])
 
     if (!strcmp(params, "lock", true)) {
         TogglePlayerClock(playerid, false);
-        SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully lock the time and weather.");
+        SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully locked the time and weather.");
         return 1;
     }
     else if (!strcmp(params, "unlock", true)) {
         TogglePlayerClock(playerid, true);
-        SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully unlock the time and weather.");
+        SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully unlocked the time and weather.");
         return 1;
     }
 
@@ -728,6 +728,48 @@ CMD:skin(playerid, params[])
 
     return 1;
 }
+
+#define COLOR_TV_USAGE 0x00FF00FF
+#define COLOR_TV_ERROR 0xFF0000FF
+#define COLOR_TV_SUCCESS 0x00FF00FF
+CMD:tv(playerid, params[])
+{
+    if (!strlen(params)) {
+        SendClientMessage(playerid, COLOR_TV_USAGE, "Usage: /tv [Integer:playerid]|[off] or /watch [Integer:playerid]|[off]");
+
+        return 1;
+    }
+
+    if(!strcmp("off", params, true)){
+        TogglePlayerSpectating(playerid, false);
+        SendClientMessage(playerid, COLOR_TV_SUCCESS, "Successfully exited the tv mode.");
+        
+        return 1;
+    }
+
+    new const targetid = strval(params);
+    if(!IsPlayerConnected(targetid)){
+        SendClientMessage(playerid, COLOR_TV_ERROR, "Player %d does not exist!", targetid);
+
+        return 1;
+    }
+
+    if(targetid == playerid){
+        SendClientMessage(playerid, COLOR_TV_ERROR, "You cannot tv yourself!");
+
+        return 1;
+    }
+
+    // there are other invalid arguments actually, but it's enough for now
+
+    TogglePlayerSpectating(playerid, true);
+    if(IsPlayerInAnyVehicle(targetid)) PlayerSpectateVehicle(playerid, GetPlayerVehicleID(targetid));
+    else PlayerSpectatePlayer(playerid, targetid);
+    SendClientMessage(playerid, COLOR_TV_SUCCESS, "Successfully tv-ed player %d.", targetid);
+
+    return 1;
+}
+alias:tv("watch")
 
 public OnPlayerTakeDamage(playerid, issuerid, Float:amount, WEAPON:weaponid, bodypart)
 {
