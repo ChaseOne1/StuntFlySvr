@@ -689,7 +689,7 @@ CMD:time(playerid, params[])
 {
     if (!strlen(params)) {
         SendClientMessage(playerid, COLOR_TIME_USAGE, "Usage: /time [Hour:0~23]|[[un]lock]");
-        SendClientMessage(playerid, COLOR_WEATHER_USAGE, "Use \"/time [un]lock\" to toggle whether time is ticking or not.");
+        SendClientMessage(playerid, COLOR_TIME_USAGE, "Use \"/time [un]lock\" to toggle whether time is ticking or not.");
 
         return 1;
     }
@@ -708,6 +708,23 @@ CMD:time(playerid, params[])
     new const hour = strval(params);
     SetPlayerTime(playerid, hour, 0);
     SendClientMessage(playerid, COLOR_TIME_SUCCESS, "Successfully set the time to %d.", hour);
+
+    return 1;
+}
+
+#define COLOR_SKIN_USAGE 0x00FF00FF
+#define COLOR_SKIN_SUCCESS 0x00FF00FF
+CMD:skin(playerid, params[])
+{
+    new const skinid = strval(params);
+    if (!strlen(params) || skinid < 0 || skinid > 311 || skinid == 74) {
+        SendClientMessage(playerid, COLOR_SKIN_USAGE, "Usage: /skin [Integer:0~73|Integer:75~311]");
+
+        return 1;
+    }
+
+    SetPlayerSkin(playerid, skinid);
+    SendClientMessage(playerid, COLOR_SKIN_SUCCESS, "Successfully set the skin to %d.", skinid);
 
     return 1;
 }
