@@ -19,7 +19,7 @@ enum E_RCP_DATA {
     enable[MAX_RCP]
 }
 
-new g_PlayerLastVeh[MAX_PLAYERS];
+new g_PlayerLastVeh[MAX_PLAYERS] = { INVALID_VEHICLE_ID, ... };
 
 CMD:ok(playerid, params[])
 {
@@ -273,20 +273,13 @@ public OnGameModeInit()
         TotalLine = i;
     }
     fclose(handle);
+
     //ÃÌº”»ÀŒÔ∆§∑Ù
-    AddPlayerClass(299, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(29, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(86, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(137, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(138, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(150, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(168, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(195, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(217, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(230, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(246, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(249, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
-    AddPlayerClass(280, 363.75, 2506.50, 100.00, 0, 46, 1, 0, 0, 0, 0);
+    new const skinId[] = { 299, 29, 86, 137, 138, 150, 168, 195, 217, 230, 246, 249, 280 };
+    for(i = 0; i < sizeof(skinId); ++i){
+        AddPlayerClass(skinId[i], 380.0, 2480.0, GetPointZPos(380.0, 2480.0) + 1.0, 0, WEAPON_FIST, 0, 0, 0, 0, 0);
+    }
+
     return 1;
 }
 
@@ -452,7 +445,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 public OnPlayerConnect(playerid)
 {
     PlayAudioStreamForPlayer(playerid, "https://file.stuntfly.com/classmusic.mp3");
-    g_PlayerLastVeh[playerid] = INVALID_VEHICLE_ID;
     return 1;
 }
 
@@ -460,6 +452,10 @@ public OnPlayerSpawn(playerid)
 {
     StopAudioStreamForPlayer(playerid);
     SpawnCP(playerid);
+
+    new const offset_x = random(50), offset_y = random(50);
+    SetPlayerPos(playerid, 380.0 + offset_x, 2480.0 + offset_y, GetPointZPos(380.0, 2480.0) + 1.0);
+
     return 1;
 }
 
@@ -748,5 +744,4 @@ public OnPlayerDisconnect(playerid, reason)
 
     g_PlayerLastVeh[playerid] = INVALID_VEHICLE_ID;
     g_PlayerGodModeToggle[playerid] = Bool:false;
-    //g_PlayerTeleportToggle[playerid] = false;
 }
